@@ -20,6 +20,14 @@ function changeSquareColour() {
   this.style.backgroundColor = `rgb(${randomRNum}, ${randomGNum}, ${randomBNum})`;
 }
 
+let currentOpacity = 0;
+
+function increaseOpacity() {
+  this.style.opacity = currentOpacity;
+  currentOpacity += 0.1; 
+  currentOpacity = Math.min(currentOpacity, 1); 
+}
+
 for (let i = 0; i < 16; i++) {
   let row = document.createElement("div");
   row.style.width = "100%";
@@ -27,6 +35,7 @@ for (let i = 0; i < 16; i++) {
   for (let i = 0; i < 16; i++) {
     square = document.createElement("div");
     square.addEventListener("mouseover", changeSquareColour);
+    square.addEventListener("mouseover", increaseOpacity);
     square.classList.add("square");
     square.style.width = "50px";
     square.style.height = "50px";
@@ -39,13 +48,13 @@ for (let i = 0; i < 16; i++) {
 
 
 
-function setGridSize(wide, tall) {
+function setGridSize(gridSize) {
   container.style.display = none;
-  for (let i = 0; i < wide; i++) {
+  for (let i = 0; i < gridSize; i++) {
   let row = document.createElement("div");
   row.style.width = "100%";
   container.appendChild(row);
-  for (let i = 0; i < tall; i++) {
+  for (let i = 0; i < gridSize; i++) {
     square = document.createElement("div");
     square.addEventListener("mouseover", changeSquareColour);
     square.classList.add("square");
