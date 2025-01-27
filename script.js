@@ -1,6 +1,16 @@
-const container = document.getElementById("container");
 const button = document.createElement("button");
 button.textContent = "Choose grid-size!";
+button.addEventListener("click", displayPrompt);
+document.body.prepend(button);
+let square;
+
+
+const container = document.getElementById("container");
+container.style.width = "800px";
+container.style.height = "800px";
+container.style.display = "flex";
+container.style.flexDirection = "column";
+
 
 function displayPrompt() {
   let userPrompt = prompt("Enter desired grid-size!");
@@ -9,9 +19,7 @@ function displayPrompt() {
 }
 
 
-button.addEventListener("click", displayPrompt);
-container.appendChild(button);
-let square;
+
 
 function changeSquareColour() {
   let randomRNum = Math.floor(Math.random() * 255);
@@ -30,8 +38,8 @@ function increaseOpacity() {
 
 for (let i = 0; i < 16; i++) {
   let row = document.createElement("div");
-  row.style.width = "100%";
   container.appendChild(row);
+  row.style.display = "flex";
   for (let i = 0; i < 16; i++) {
     square = document.createElement("div");
     square.addEventListener("mouseover", changeSquareColour);
