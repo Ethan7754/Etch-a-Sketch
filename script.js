@@ -1,15 +1,15 @@
+const container = document.querySelector("#container");
 const button = document.createElement("button");
-button.textContent = "Choose grid-size!";
-button.addEventListener("click", displayPrompt);
+button.style.width = "100px";
+button.style.height = "50px";
+button.innerText = "Enter Size";
 document.body.prepend(button);
-let square;
+button.addEventListener("click", getUserCount)
 
-
-const container = document.getElementById("container");
-container.style.width = "800px";
-container.style.height = "800px";
-container.style.display = "flex";
-container.style.flexDirection = "column";
+function getUserCount() {
+  const userCount = window.prompt("enter desired demensions for square (1 to 100 inclusive");
+  return userCount;
+}
 
 function changeSquareColour() {
   let randomRNum = Math.floor(Math.random() * 255);
@@ -18,53 +18,33 @@ function changeSquareColour() {
   this.style.backgroundColor = `rgb(${randomRNum}, ${randomGNum}, ${randomBNum})`;
 }
 
-let currentOpacity = 0;
+let columnArray = [];
 
-function increaseOpacity() {
-  this.style.opacity = currentOpacity;
-  currentOpacity += 0.1; 
-  currentOpacity = Math.min(currentOpacity, 1); 
-}
+let count;
 
-
-
-for (let i = 0; i < 16; i++) {
+for (let i = 0; i < count; i++) {
   let row = document.createElement("div");
   container.appendChild(row);
+  row.style.border = "2px solid black";
+  row.style.flex = 1;
   row.style.display = "flex";
-  for (let i = 0; i < 16; i++) {
-    square = document.createElement("div");
-    square.addEventListener("mouseover", changeSquareColour);
-    square.addEventListener("mouseover", increaseOpacity);
-    square.classList.add("square");
-    square.style.width = "50px";
-    square.style.height = "50px";
-    square.style.border = "2px solid black";
-    container.appendChild(square);
+  for (let i = 0; i < count; i++) {
+    let column = document.createElement("div");
+    row.appendChild(column);
+    column.style.height = "100%";
+    column.style.border = "2px solid black";
+    column.style.flex = 1;
+    column.addEventListener("mouseover", changeSquareColour);
+    columnArray.push(column);
   }
 }
 
-function displayPrompt() {
-  let userAnswer = prompt("Enter desired grid-size! (any number between 1 and 100 inclusive :)");
-  container.style.display = "none";
-  for (let i = 0; i < userAnswer; i++) {
-    let row = document.createElement("div");
-    container.appendChild(row);
-    row.style.display = "flex";
-    for (let i = 0; i < userAnswer; i++) {
-      square = document.createElement("div");
-      square.addEventListener("mouseover", changeSquareColour);
-      square.addEventListener("mouseover", increaseOpacity);
-      square.classList.add("square");
-      square.style.width = "50px";
-      square.style.height = "50px";
-      square.style.border = "2px solid black";
-      container.appendChild(square);
-    }
-  }
-  container.style.display = "initial";
-}
 
-
-
-
+const increaseOpacityOfEachSquare = columnArray.forEach(item => {
+  let currentOpacity = 0; 
+  item.addEventListener("mouseover", increaseOpacity)
+  function increaseOpacity() {
+    item.style.opacity = currentOpacity;
+    currentOpacity += 0.1; 
+    currentOpacity = Math.min(currentOpacity, 1); 
+}});
